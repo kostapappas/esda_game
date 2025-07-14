@@ -1,27 +1,679 @@
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+/* Retro Security Quest - CSS Design System */
+/* Based on 8-bit pixel art aesthetic */
+
+/* CSS Variables - Retro Adventure Color Palette */
+:root {
+    /* Main colors - HSL format for consistency */
+    --background: hsl(220, 25%, 8%);              /* Deep dungeon blue-black */
+    --foreground: hsl(45, 95%, 85%);              /* Warm parchment text */
+    
+    --card: hsl(220, 20%, 12%);                   /* Stone castle walls */
+    --card-foreground: hsl(45, 85%, 80%);         /* Readable parchment */
+    
+    --primary: hsl(45, 95%, 55%);                 /* Treasure gold */
+    --primary-foreground: hsl(220, 30%, 15%);     /* Dark text on gold */
+    
+    --secondary: hsl(210, 45%, 25%);              /* Castle blue-gray */
+    --secondary-foreground: hsl(45, 80%, 75%);    /* Light text */
+    
+    --accent: hsl(25, 85%, 45%);                  /* Copper/bronze accents */
+    --accent-foreground: hsl(45, 90%, 85%);       /* Bright on copper */
+    
+    --success: hsl(120, 50%, 35%);                /* Forest/nature green */
+    --success-foreground: hsl(45, 90%, 85%);      /* Light on green */
+    
+    --destructive: hsl(0, 75%, 45%);              /* Dragon fire red */
+    --destructive-foreground: hsl(45, 90%, 85%);  /* Light on red */
+    
+    --border: hsl(220, 20%, 25%);                 /* Stone borders */
+    --muted: hsl(220, 15%, 18%);                  /* Weathered stone */
+    --muted-foreground: hsl(45, 40%, 60%);        /* Faded parchment */
+    
+    /* Adventure Game Specific Colors */
+    --hero: hsl(200, 60%, 50%);                   /* Hero blue tunic */
+    --treasure: hsl(45, 100%, 50%);               /* Pure treasure gold */
+    --magic: hsl(280, 70%, 55%);                  /* Magical purple */
+    --danger: hsl(0, 80%, 50%);                   /* Warning red */
+}
+
+/* Reset and Base Styles */
+* {
     margin: 0;
-    background-color: #f0f0f0;
-    background-image: url('../images/treasury.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Orbitron', monospace;
+    background: var(--background);
+    color: var(--foreground);
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(45, 95, 55, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(45, 100, 50, 0.1) 0%, transparent 50%);
+}
+
+/* Pixel Font Classes */
+.font-pixel {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.font-display {
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+}
+
+/* Screen Management */
+.screen {
+    display: none;
+    min-height: 100vh;
+    padding: 20px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.screen.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .container {
-    text-align: center;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    backdrop-filter: blur(5px);
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-h1 {
-    color: #333;
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+@keyframes glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(45, 95, 55, 0.5); }
+    50% { box-shadow: 0 0 30px rgba(45, 95, 55, 0.8); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* START SCREEN STYLES */
+.game-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.icons-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.icon {
+    font-size: 48px;
+    animation: bounce 2s infinite;
+}
+
+.hero-character {
+    position: relative;
+    animation: pulse 2s infinite;
+}
+
+.hero-sprite {
+    font-size: 96px;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+}
+
+.hero-crown {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    font-size: 32px;
+    animation: glow 2s infinite;
+}
+
+.game-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(24px, 5vw, 48px);
+    color: var(--primary);
     margin-bottom: 20px;
+    text-shadow: 3px 3px 0px var(--primary-foreground);
+    animation: glow 3s infinite;
+}
+
+.game-subtitle {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(16px, 3vw, 24px);
+    color: var(--accent);
+    margin-bottom: 30px;
+    font-weight: 700;
+}
+
+.game-description {
+    max-width: 600px;
+    margin: 0 auto 40px;
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--foreground);
+    background: var(--card);
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid var(--border);
+}
+
+.game-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.feature-card {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(45, 95, 55, 0.3);
+}
+
+.feature-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.feature-text {
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* GAME SCREEN STYLES */
+.progress-container {
+    margin-bottom: 30px;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 14px;
+}
+
+.score-display {
+    color: var(--primary);
+}
+
+.progress-bar {
+    height: 20px;
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--treasure));
+    transition: width 0.5s ease;
+    border-radius: 8px;
+}
+
+.scene-container {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 20px;
+}
+
+.scene-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.scene-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 20px;
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+.scene-location {
+    font-family: 'Orbitron', monospace;
+    color: var(--accent);
+    font-size: 14px;
+}
+
+.scene-image-container {
+    position: relative;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 3px solid var(--border);
+}
+
+.scene-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    image-rendering: pixelated;
+}
+
+.scene-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    padding: 20px;
+    color: white;
+}
+
+.npc-name {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 12px;
+    color: var(--primary);
+    margin-bottom: 5px;
+}
+
+.npc-description {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.question-container {
+    margin-bottom: 20px;
+}
+
+.question-text {
+    font-family: 'Orbitron', monospace;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--foreground);
+    margin-bottom: 30px;
+    padding: 20px;
+    background: var(--muted);
+    border-radius: 10px;
+    border-left: 4px solid var(--primary);
+}
+
+.options-container {
+    display: grid;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.option-button {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    color: var(--foreground);
+    font-family: 'Orbitron', monospace;
+    font-size: 16px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.option-button:hover {
+    background: var(--secondary);
+    border-color: var(--primary);
+    transform: translateX(5px);
+}
+
+.option-button.selected {
+    background: var(--primary);
+    color: var(--primary-foreground);
+    border-color: var(--primary);
+}
+
+.option-button.correct {
+    background: var(--success);
+    border-color: var(--success);
+    color: var(--success-foreground);
+}
+
+.option-button.incorrect {
+    background: var(--destructive);
+    border-color: var(--destructive);
+    color: var(--destructive-foreground);
+}
+
+.option-letter {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 14px;
+    min-width: 30px;
+    text-align: center;
+    background: var(--accent);
+    color: var(--accent-foreground);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.option-text {
+    flex: 1;
+    line-height: 1.4;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.feedback-container {
+    background: var(--muted);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.feedback-result {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 16px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.feedback-result.correct {
+    color: var(--success);
+}
+
+.feedback-result.incorrect {
+    color: var(--destructive);
+}
+
+.feedback-explanation {
+    font-family: 'Orbitron', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--foreground);
+}
+
+/* END SCREEN STYLES */
+.end-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.score-icon-container {
+    margin-bottom: 20px;
+}
+
+.score-icon {
+    font-size: 96px;
+    animation: bounce 2s infinite;
+}
+
+.end-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 24px;
+    color: var(--primary);
+    margin-bottom: 15px;
+}
+
+.score-level {
+    font-family: 'Orbitron', monospace;
+    font-size: 18px;
+    color: var(--accent);
+    font-weight: 700;
+}
+
+.final-score-container {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 15px;
+    padding: 40px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.final-score {
+    margin-bottom: 20px;
+}
+
+.score-number {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 36px;
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+.score-percentage {
+    font-family: 'Orbitron', monospace;
+    font-size: 24px;
+    color: var(--accent);
+    font-weight: 700;
+}
+
+.encouragement-message {
+    font-family: 'Orbitron', monospace;
+    font-size: 16px;
+    color: var(--foreground);
+    line-height: 1.6;
+}
+
+.achievements-container {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 40px;
+}
+
+.achievements-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 16px;
+    color: var(--primary);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+.achievement-badge {
+    background: var(--muted);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.achievement-badge:hover {
+    transform: translateY(-5px);
+}
+
+.achievement-icon {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.achievement-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 12px;
+    color: var(--foreground);
+}
+
+.end-actions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* BUTTON STYLES */
+.primary-button {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 14px;
+    padding: 15px 30px;
+    background: var(--primary);
+    color: var(--primary-foreground);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.primary-button:hover {
+    background: var(--treasure);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.primary-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.primary-button:disabled {
+    background: var(--muted);
+    color: var(--muted-foreground);
+    cursor: not-allowed;
+    transform: none;
+}
+
+.secondary-button {
+    font-family: 'Orbitron', monospace;
+    font-size: 14px;
+    padding: 15px 30px;
+    background: var(--secondary);
+    color: var(--secondary-foreground);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 700;
+}
+
+.secondary-button:hover {
+    background: var(--accent);
+    color: var(--accent-foreground);
+    border-color: var(--accent);
+}
+
+/* LOADING SCREEN */
+.loading-container {
+    text-align: center;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid var(--muted);
+    border-top: 3px solid var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 16px;
+    color: var(--primary);
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .game-title {
+        font-size: 24px;
+    }
+    
+    .icons-row {
+        gap: 20px;
+    }
+    
+    .icon {
+        font-size: 32px;
+    }
+    
+    .hero-sprite {
+        font-size: 64px;
+    }
+    
+    .game-features {
+        grid-template-columns: 1fr;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .end-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .achievements-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .scene-image {
+        height: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .screen {
+        padding: 15px;
+    }
+    
+    .scene-container {
+        padding: 20px;
+    }
+    
+    .option-button {
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+    
+    .primary-button,
+    .secondary-button {
+        padding: 12px 20px;
+        font-size: 12px;
+    }
 } 

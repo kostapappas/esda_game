@@ -1,15 +1,207 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="el">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello Page</title>
+    <title>Retro Security Quest - Ασφάλεια Διαδικτυακών Εφαρμογών</title>
     <link rel="stylesheet" href="style/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h1>Hello, World!</h1>
-        <p>Welcome to my website!</p>
+    <!-- Audio Context -->
+    <audio id="backgroundMusic" loop>
+        <source src="audio/background.mp3" type="audio/mpeg">
+    </audio>
+    
+    <!-- Start Screen -->
+    <div id="startScreen" class="screen active">
+        <div class="container">
+            <div class="game-header">
+                <div class="icons-row">
+                    <div class="icon shield-icon">⚔️</div>
+                    
+                    <div class="hero-character">
+                        <div class="hero-sprite">🧙‍♂️</div>
+                        <div class="hero-crown">👑</div>
+                    </div>
+                    
+                    <div class="icon sword-icon">🗡️</div>
+                </div>
+                
+                <h1 class="game-title">Retro Security Quest</h1>
+                <div class="game-subtitle">A Retro Security Adventure</div>
+                
+                <div class="game-description">
+                    <p>Αναλάβετε το ρόλο ενός αναλυτή ασφαλείας-ήρωα και ταξιδέψτε μέσα από 20 διαφορετικές σκηνές. Κάθε σκηνή παρουσιάζει μια ερώτηση ασφάλειας διαδικτυακών εφαρμογών με μοναδικό ρετρό περιβάλλον.</p>
+                </div>
+            </div>
+            
+            <div class="game-features">
+                <div class="feature-card">
+                    <div class="feature-icon">🏰</div>
+                    <div class="feature-text">20 Μοναδικές Σκηνές</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎮</div>
+                    <div class="feature-text">Retro Pixel Art</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <div class="feature-text">Ασφάλεια Web</div>
+                </div>
+            </div>
+            
+            <button id="startButton" class="primary-button">
+                Ξεκίνησε την Περιπέτεια
+            </button>
+        </div>
     </div>
+    
+    <!-- Game Screen -->
+    <div id="gameScreen" class="screen">
+        <div class="container">
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-info">
+                    <span id="currentQuestion">1</span> / <span id="totalQuestions">20</span>
+                    <div class="score-display">Score: <span id="currentScore">0</span></div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+            
+            <!-- Scene Display -->
+            <div class="scene-container">
+                <div class="scene-header">
+                    <h2 id="sceneTitle" class="scene-title">Βιβλιοθήκη Γνώσης</h2>
+                    <div id="sceneLocation" class="scene-location">📍 Μεγάλη Βιβλιοθήκη</div>
+                </div>
+                
+                <!-- Scene Image -->
+                <div class="scene-image-container">
+                    <img id="sceneImage" src="images/treasury.png" alt="Scene Background" class="scene-image">
+                    <div class="scene-overlay">
+                        <div class="npc-info">
+                            <div class="npc-name" id="npcName">Σοφός Γέροντας</div>
+                            <div class="npc-description" id="npcDescription">Ένας σοφός γέροντας με το βιβλίο της γνώσης</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Question -->
+                <div class="question-container">
+                    <div class="question-text" id="questionText">
+                        Τι είναι το OWASP Top 10;
+                    </div>
+                    
+                    <!-- Answer Options -->
+                    <div class="options-container" id="optionsContainer">
+                        <button class="option-button" data-option="0">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">Μια λίστα με τα 10 καλύτερα εργαλεία ασφάλειας</span>
+                        </button>
+                        <button class="option-button" data-option="1">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">Μια λίστα με τις 10 πιο κρίσιμες ευπάθειες ασφάλειας</span>
+                        </button>
+                        <button class="option-button" data-option="2">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Μια λίστα με τους 10 καλύτερους προγραμματιστές</span>
+                        </button>
+                        <button class="option-button" data-option="3">
+                            <span class="option-letter">D</span>
+                            <span class="option-text">Μια λίστα με τα 10 πιο ασφαλή λειτουργικά συστήματα</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <button id="submitAnswer" class="primary-button" disabled>
+                            Επιβεβαίωση Απάντησης
+                        </button>
+                        <button id="nextQuestion" class="secondary-button" style="display: none;">
+                            Επόμενη Ερώτηση →
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Feedback -->
+                <div class="feedback-container" id="feedbackContainer" style="display: none;">
+                    <div class="feedback-content">
+                        <div class="feedback-result" id="feedbackResult"></div>
+                        <div class="feedback-explanation" id="feedbackExplanation"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- End Screen -->
+    <div id="endScreen" class="screen">
+        <div class="container">
+            <div class="end-header">
+                <div class="score-icon-container">
+                    <div class="score-icon" id="scoreIcon">🏆</div>
+                </div>
+                <h1 class="end-title">Περιπέτεια Ολοκληρώθηκε!</h1>
+                <div class="score-level" id="scoreLevel">Security Master</div>
+            </div>
+            
+            <div class="final-score-container">
+                <div class="final-score">
+                    <div class="score-number">
+                        <span id="finalScore">18</span>/<span id="finalTotal">20</span>
+                    </div>
+                    <div class="score-percentage" id="scorePercentage">90%</div>
+                </div>
+                
+                <div class="encouragement-message" id="encouragementMessage">
+                    Outstanding! You are a true cybersecurity expert! 🏆
+                </div>
+            </div>
+            
+            <div class="achievements-container">
+                <h3 class="achievements-title">Επιτεύγματα</h3>
+                <div class="achievements-grid" id="achievementsGrid">
+                    <div class="achievement-badge">
+                        <div class="achievement-icon">🎓</div>
+                        <div class="achievement-name">OWASP Expert</div>
+                    </div>
+                    <div class="achievement-badge">
+                        <div class="achievement-icon">🔒</div>
+                        <div class="achievement-name">Privacy Champion</div>
+                    </div>
+                    <div class="achievement-badge">
+                        <div class="achievement-icon">⚡</div>
+                        <div class="achievement-name">Speed Runner</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="end-actions">
+                <button id="playAgainButton" class="primary-button">
+                    🔄 Παίξε Ξανά
+                </button>
+                <button id="shareScoreButton" class="secondary-button">
+                    📤 Μοιράσου το Σκορ
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="screen">
+        <div class="loading-container">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Φόρτωση περιπέτειας...</div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="script/audio.js"></script>
+    <script src="script/game.js"></script>
 </body>
 </html>
