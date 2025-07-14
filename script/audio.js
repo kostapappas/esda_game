@@ -187,6 +187,12 @@ class AudioManager {
     playTransition() {
         this.resumeAudioContext();
         
+        // Check if audio context is available before creating oscillator
+        if (!this.audioContext || !this.isInitialized) {
+            console.warn('Audio context not initialized, skipping transition sound');
+            return;
+        }
+        
         // Transition whoosh effect
         const oscillator = this.audioContext.createOscillator();
         const gainNode = this.audioContext.createGain();

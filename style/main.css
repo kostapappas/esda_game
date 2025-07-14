@@ -67,28 +67,34 @@ body {
     font-weight: 700;
 }
 
-/* Screen Management */
+/* Re-implementing screen transitions for absolute reliability. */
+/* This approach avoids overlapping screens and transition artifacts. */
+
+@keyframes reliableFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Screen Management: Simple and Bulletproof */
 .screen {
-    display: none;
+    display: none; /* All screens are hidden by default */
+    width: 100%;
     min-height: 100vh;
     padding: 20px;
-    animation: fadeIn 0.5s ease-in-out forwards;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .screen.active {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 1;
-    animation-fill-mode: forwards;
-}
-
-/* Ensure end screen is always visible when active */
-#endScreen.screen.active {
-    display: flex !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    animation: none !important;
+    display: flex; /* Only the active screen is displayed */
+    animation: reliableFadeIn 0.35s ease-out; /* Apply a simple, clean animation on appearance */
 }
 
 .container {
@@ -99,11 +105,6 @@ body {
 }
 
 /* Animations */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
 @keyframes bounce {
     0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
     40% { transform: translateY(-10px); }

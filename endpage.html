@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retro Security Quest - Αποτέλεσμα</title>
+    <link rel="stylesheet" href="style/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="endScreen" class="screen active" style="position: static;">
+        <div class="container">
+            <div class="end-header">
+                <div class="score-icon-container">
+                    <div class="score-icon" id="scoreIcon">🏆</div>
+                </div>
+                <h1 class="end-title">Περιπέτεια Ολοκληρώθηκε!</h1>
+                <div class="score-level" id="scoreLevel">Loading...</div>
+            </div>
+            
+            <div class="final-score-container">
+                <div class="final-score">
+                    <div class="score-number">
+                        <span id="finalScore">...</span>/<span id="finalTotal">20</span>
+                    </div>
+                    <div class="score-percentage" id="scorePercentage">...%</div>
+                </div>
+                
+                <div class="encouragement-message" id="encouragementMessage">
+                    Υπολογισμός αποτελέσματος...
+                </div>
+            </div>
+            
+            <div class="achievements-container">
+                <h3 class="achievements-title">Επιτεύγματα</h3>
+                <div class="achievements-grid" id="achievementsGrid">
+                    <!-- Achievements will be generated here by JavaScript -->
+                </div>
+            </div>
+            
+            <div class="end-actions">
+                <a href="index.html" id="playAgainButton" class="primary-button">
+                    🔄 Παίξε Ξανά
+                </a>
+                <button id="shareScoreButton" class="secondary-button">
+                    📤 Μοιράσου το Σκορ
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Script for this page -->
+    <script src="script/endpage.js"></script>
+</body>
+</html> 
