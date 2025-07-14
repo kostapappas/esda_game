@@ -72,13 +72,23 @@ body {
     display: none;
     min-height: 100vh;
     padding: 20px;
-    animation: fadeIn 0.5s ease-in-out;
+    animation: fadeIn 0.5s ease-in-out forwards;
 }
 
 .screen.active {
     display: flex;
     align-items: center;
     justify-content: center;
+    opacity: 1;
+    animation-fill-mode: forwards;
+}
+
+/* Ensure end screen is always visible when active */
+#endScreen.screen.active {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    animation: none !important;
 }
 
 .container {
@@ -253,20 +263,23 @@ body {
 }
 
 .scene-left {
-    flex: 0 0 400px; /* Fixed width for image section */
+    flex: 0 0 600px; /* Fixed width for image section - 600px */
     display: flex;
     flex-direction: column;
+    justify-content: center; /* Center image vertically */
 }
 
 .scene-right {
     flex: 1; /* Take remaining space */
     display: flex;
     flex-direction: column;
+    justify-content: center; /* Center content vertically */
 }
 
 .scene-header {
     text-align: center;
     margin-bottom: 30px;
+    display: none; /* Hide duplicate titles - they're shown over the image */
 }
 
 .scene-title {
@@ -289,9 +302,9 @@ body {
     border-radius: 10px;
     overflow: hidden;
     border: 3px solid var(--border);
-    width: 100%;
-    aspect-ratio: 1 / 1; /* Perfect square */
-    margin-bottom: 20px;
+    width: 600px; /* Fixed 600px width */
+    height: 600px; /* Fixed 600px height */
+    margin: 0 auto; /* Center horizontally */
 }
 
 .scene-image {
@@ -306,7 +319,7 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.3)); /* 30% transparent black shade */
     padding: 20px;
     color: white;
 }
@@ -317,12 +330,19 @@ body {
     color: var(--primary);
     margin-bottom: 5px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.3); /* 30% transparent background */
+    padding: 5px 10px;
+    border-radius: 5px;
 }
 
 .npc-description {
     font-size: 14px;
     opacity: 0.9;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.3); /* 30% transparent background */
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-top: 5px;
 }
 
 .question-container {
@@ -689,7 +709,8 @@ body {
     }
     
     .scene-image-container {
-        max-width: 350px;
+        width: 350px;
+        height: 350px;
         margin: 0 auto 20px auto;
     }
 }
@@ -705,11 +726,13 @@ body {
     }
     
     .scene-left {
-        flex: 0 0 280px;
+        flex: none;
+        width: 100%;
     }
     
     .scene-image-container {
-        max-width: 280px;
+        width: 280px;
+        height: 280px;
         margin: 0 auto 15px auto;
     }
     

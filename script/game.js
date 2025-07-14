@@ -450,11 +450,17 @@ class SecurityQuest {
     showScreen(screenName) {
         // Hide all screens
         Object.values(this.screens).forEach(screen => {
-            screen.classList.remove('active');
+            if (screen) {
+                screen.classList.remove('active');
+            }
         });
         
         // Show selected screen
-        this.screens[screenName].classList.add('active');
+        if (this.screens[screenName]) {
+            this.screens[screenName].classList.add('active');
+        } else {
+            console.error('Screen not found:', screenName);
+        }
         
         // Update game state
         this.gameState = screenName === 'game' ? 'playing' : screenName;
@@ -657,16 +663,16 @@ class SecurityQuest {
         const level = this.getScoreLevel(percentage);
         
         // Update score display
-        this.finalScore.textContent = this.score;
-        this.finalTotal.textContent = this.questions.length;
-        this.scorePercentage.textContent = `${percentage}%`;
+        if (this.finalScore) this.finalScore.textContent = this.score;
+        if (this.finalTotal) this.finalTotal.textContent = this.questions.length;
+        if (this.scorePercentage) this.scorePercentage.textContent = `${percentage}%`;
         
         // Update level and icon
-        this.scoreLevel.textContent = level.title;
-        this.scoreIcon.textContent = level.icon;
+        if (this.scoreLevel) this.scoreLevel.textContent = level.title;
+        if (this.scoreIcon) this.scoreIcon.textContent = level.icon;
         
         // Update encouragement message
-        this.encouragementMessage.textContent = this.getEncouragementMessage(percentage);
+        if (this.encouragementMessage) this.encouragementMessage.textContent = this.getEncouragementMessage(percentage);
         
         // Generate achievements
         this.generateAchievements(percentage);
