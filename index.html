@@ -75,24 +75,28 @@
             
             <!-- Scene Display -->
             <div class="scene-container">
-                <div class="scene-header">
-                    <h2 id="sceneTitle" class="scene-title">Βιβλιοθήκη Γνώσης</h2>
-                    <div id="sceneLocation" class="scene-location">📍 Μεγάλη Βιβλιοθήκη</div>
-                </div>
-                
-                <!-- Scene Image -->
-                <div class="scene-image-container">
-                    <img id="sceneImage" src="images/treasury.png" alt="Scene Background" class="scene-image">
-                    <div class="scene-overlay">
-                        <div class="npc-info">
-                            <div class="npc-name" id="npcName">Σοφός Γέροντας</div>
-                            <div class="npc-description" id="npcDescription">Ένας σοφός γέροντας με το βιβλίο της γνώσης</div>
+                <!-- Left Section - Image -->
+                <div class="scene-left">
+                    <div class="scene-image-container">
+                        <img id="sceneImage" src="images/treasury.png" alt="Scene Background" class="scene-image">
+                        <div class="scene-overlay">
+                            <div class="npc-info">
+                                <div class="npc-name" id="npcName">Σοφός Γέροντας</div>
+                                <div class="npc-description" id="npcDescription">Ένας σοφός γέροντας με το βιβλίο της γνώσης</div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Question -->
-                <div class="question-container">
+                <!-- Right Section - Questions -->
+                <div class="scene-right">
+                    <div class="scene-header">
+                        <h2 id="sceneTitle" class="scene-title">Βιβλιοθήκη Γνώσης</h2>
+                        <div id="sceneLocation" class="scene-location">📍 Μεγάλη Βιβλιοθήκη</div>
+                    </div>
+                    
+                    <!-- Question -->
+                    <div class="question-container">
                     <div class="question-text" id="questionText">
                         Τι είναι το OWASP Top 10;
                     </div>
@@ -126,13 +130,13 @@
                             Επόμενη Ερώτηση →
                         </button>
                     </div>
-                </div>
-                
-                <!-- Feedback -->
-                <div class="feedback-container" id="feedbackContainer" style="display: none;">
-                    <div class="feedback-content">
-                        <div class="feedback-result" id="feedbackResult"></div>
-                        <div class="feedback-explanation" id="feedbackExplanation"></div>
+                    
+                    <!-- Feedback -->
+                    <div class="feedback-container" id="feedbackContainer" style="display: none;">
+                        <div class="feedback-content">
+                            <div class="feedback-result" id="feedbackResult"></div>
+                            <div class="feedback-explanation" id="feedbackExplanation"></div>
+                        </div>
                     </div>
                 </div>
             </div>

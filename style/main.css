@@ -247,6 +247,21 @@ body {
     border-radius: 15px;
     padding: 30px;
     margin-bottom: 20px;
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.scene-left {
+    flex: 0 0 400px; /* Fixed width for image section */
+    display: flex;
+    flex-direction: column;
+}
+
+.scene-right {
+    flex: 1; /* Take remaining space */
+    display: flex;
+    flex-direction: column;
 }
 
 .scene-header {
@@ -259,25 +274,29 @@ body {
     font-size: 20px;
     color: var(--primary);
     margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 .scene-location {
     font-family: 'Orbitron', monospace;
     color: var(--accent);
     font-size: 14px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
 
 .scene-image-container {
     position: relative;
-    margin-bottom: 30px;
     border-radius: 10px;
     overflow: hidden;
     border: 3px solid var(--border);
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Perfect square */
+    margin-bottom: 20px;
 }
 
 .scene-image {
     width: 100%;
-    height: 300px;
+    height: 100%;
     object-fit: cover;
     image-rendering: pixelated;
 }
@@ -297,11 +316,13 @@ body {
     font-size: 12px;
     color: var(--primary);
     margin-bottom: 5px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
 }
 
 .npc-description {
     font-size: 14px;
     opacity: 0.9;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
 }
 
 .question-container {
@@ -652,8 +673,24 @@ body {
         grid-template-columns: 1fr;
     }
     
-    .scene-image {
-        height: 200px;
+    .scene-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .scene-left {
+        flex: none;
+        width: 100%;
+    }
+    
+    .scene-right {
+        flex: none;
+        width: 100%;
+    }
+    
+    .scene-image-container {
+        max-width: 350px;
+        margin: 0 auto 20px auto;
     }
 }
 
@@ -664,6 +701,16 @@ body {
     
     .scene-container {
         padding: 20px;
+        gap: 15px;
+    }
+    
+    .scene-left {
+        flex: 0 0 280px;
+    }
+    
+    .scene-image-container {
+        max-width: 280px;
+        margin: 0 auto 15px auto;
     }
     
     .option-button {
