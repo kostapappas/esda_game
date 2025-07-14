@@ -498,8 +498,9 @@ class SecurityQuest {
         this.npcName.textContent = question.scene_title;
         this.npcDescription.textContent = question.scene_description;
         
-        // Set scene image (placeholder for now)
-        this.sceneImage.src = 'images/treasury.png';
+        // Set scene image based on question ID
+        const imageFilename = `scene_${question.id.toString().padStart(2, '0')}.png`;
+        this.sceneImage.src = `images/${imageFilename}`;
         this.sceneImage.alt = question.scene_title;
         
         // Display question
